@@ -8,9 +8,9 @@ from PySDM_examples.Shima_et_al_2009.spectrum_plotter import SpectrumPlotter
 
 
 def main(plot: bool = True, save: str = None):
-    n_sds = [14, 16, 18]
+    n_sds = [13, 15, 17]
     dts = [10, 5, 1, "adaptive"]
-    iters = 10
+    iters = 5
     base_time = None
 
     plt.ioff()
@@ -35,7 +35,7 @@ def main(plot: bool = True, save: str = None):
             exec_time = 0
             for seed in range(iters):
                 settings = Settings()
-                settings.formulae.seed = seed * 2
+                settings.formulae.seed = seed
 
                 settings.n_sd = 2**n_sd
                 settings.dt = dt if dt != "adaptive" else 10
