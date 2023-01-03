@@ -8,7 +8,7 @@ from PySDM_examples.Shima_et_al_2009.spectrum_plotter import SpectrumPlotter
 
 
 def main(plot: bool = True, save: str = None):
-    n_sds = [13, 15, 17]
+    n_sds = [14, 16, 18]
     dts = [10, 5, 1, "adaptive"]
     iters = 10
     base_time = None
@@ -17,13 +17,25 @@ def main(plot: bool = True, save: str = None):
     fig, axs = plt.subplots(
         len(dts), len(n_sds), sharex=True, sharey=True, figsize=(10, 10)
     )
+    # warmup
+    n_sd = 10
+    dt = 10
+    settings = Settings()
+    settings.formulae.seed = 44
+
+    settings.n_sd = 2 ** n_sd
+    settings.dt = dt if dt != "adaptive" else 10
+    settings.adaptive = dt == "adaptive"
+    run(settings)
+    ###
 
     for i, dt in enumerate(dts):
         for j, n_sd in enumerate(n_sds):
             outputs = []
             exec_time = 0
-            for _ in range(iters):
+            for seed in range(iters):
                 settings = Settings()
+                settings.formulae.seed = seed * 2
 
                 settings.n_sd = 2**n_sd
                 settings.dt = dt if dt != "adaptive" else 10

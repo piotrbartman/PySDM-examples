@@ -58,9 +58,9 @@ class SpectrumPlotter:
         }
         if self.title is not None:
             try:
-                self.ax.title(self.title)
+                self.ax.title(self.title, fontsize=10)
             except TypeError:
-                self.ax.set_title(self.title)
+                self.ax.set_title(self.title, fontsize=10)
         try:
             self.ax.xscale("log", **base_arg)
             self.ax.xlabel(self.xlabel)
@@ -123,7 +123,7 @@ class SpectrumPlotter:
         if spectrum is not None:
             y = spectrum * si.kilograms / si.grams
             error = error_measure(y, y_true, x)
-            self.title = f"error measure: {error:.2f}"  # TODO #327 relative error
+            self.title = f"error meas.: {error:.2f}"  # TODO #327 relative error
             return error
         return None
 
